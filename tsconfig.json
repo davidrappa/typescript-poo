@@ -3,6 +3,10 @@
     "moduleDetection": "force",
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "target": "ES5",
+    "module": "commonjs",
+    "outDir": "out",
+    "sourceMap": true
   }
 }
