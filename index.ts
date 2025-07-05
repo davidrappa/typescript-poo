@@ -1,11 +1,15 @@
 import { Person } from "./banking/Person";
 
 function main() {
-  const maria = new Person("Maria", "Silva", new Date("1996-01-15"));
+  const maria = new Person("Maria", "da Silva", new Date("1999-01-15"));
 
-  maria.updateFirstName("Maria Clara");
+  //maria.firstName
 
-  console.log(maria.getFullName());
+  // maria.firstName = "Maria Clara"
+  maria.firstName = "";
+
+  // console.log(maria.getFirstName());
+  console.log(maria.fullName);
 }
 
 main();
