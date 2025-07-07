@@ -1,47 +1,15 @@
-import { CompositionBankAccount } from "./banking/CompositionBankAccount";
+import { CreditCard } from "./banking/CreditCard";
+import { CurrentAccount } from "./banking/CurrentAccount";
 
 import { Person } from "./banking/Person";
-
-import {
-  OverdraftWithdrawal,
-  StandardWithdrawal,
-} from "./banking/WithdrawalStrategy";
+import { ProcessPayment } from "./banking/ProcessPayment";
 
 const maria = new Person("Maria", "da Silva", new Date("1999-01-15"));
-const mariaSavingsAccount = new CompositionBankAccount(
-  maria,
-  100,
-  "123",
-  new StandardWithdrawal()
-);
+const mariaCurrentAccount = new CurrentAccount(maria, 100, "123", 2);
 
 const david = new Person("David", "Rappa", new Date("1996-02-16"));
-const davidCurrentAccount = new CompositionBankAccount(
-  david,
-  100,
-  "1111",
-  new OverdraftWithdrawal(100)
-);
+const davidCreditCard = new CreditCard("555 555", 5000);
 
-/**
- *
- * @param sender envia
- * @param receiver recebe
- * @param amount quantidade
- */
-function transaction(
-  sender: CompositionBankAccount,
-  receiver: CompositionBankAccount,
-  amount: number
-) {
-  try {
-    sender.withdraw(amount);
-    receiver.deposit(amount);
-    console.log("Transaction successful");
-  } catch (error) {
-    console.log(error.message);
-  }
-}
+const payment = new ProcessPayment(davidCreditCard, 400);
 
-// enviar 50 do David para a Maria
-transaction(davidCurrentAccount, mariaSavingsAccount, 200);
+payment.execute();
