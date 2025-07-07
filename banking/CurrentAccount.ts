@@ -25,6 +25,10 @@ export class CurrentAccount extends BankAccount implements PaymentMethod {
     }
   }
 
+  get accountType() {
+    return "CurrentAccount";
+  }
+
   pay(amount: number): void {
     if (amount > this.balance) {
       console.log("❌ Insufficient balance for transaction");
