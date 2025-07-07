@@ -5,28 +5,9 @@ import { Person } from "./Person";
 export class CurrentAccount extends BankAccount implements PaymentMethod {
   private overdraftLimit: number;
 
-  constructor(
-    person: Person,
-    initialBalance: number,
-    accountNumber: string,
-    overdraftLimit: number
-  ) {
-    super(person, initialBalance, accountNumber);
+  constructor(person: Person, initialBalance: number, overdraftLimit: number) {
+    super(person, initialBalance);
     this.overdraftLimit = overdraftLimit;
-  }
-
-  override withdraw(amount: number): void {
-    const totalLimit = this._balance + this.overdraftLimit;
-    if (amount > 0 && amount <= totalLimit) {
-      this._balance -= amount;
-      this.logSuccessWithDraw(amount);
-    } else {
-      this.logInvalidWithDraw();
-    }
-  }
-
-  get accountType() {
-    return "CurrentAccount";
   }
 
   pay(amount: number): void {
@@ -40,5 +21,19 @@ export class CurrentAccount extends BankAccount implements PaymentMethod {
 
   getBalance(): number {
     return this._balance;
+  }
+
+  get accountType() {
+    return "CurrentAccount";
+  }
+
+  override withdraw(amount: number): void {
+    const totalLimit = this._balance + this.overdraftLimit;
+    if (amount > 0 && amount <= totalLimit) {
+      this._balance -= amount;
+      this.logSuccessWithDraw(amount);
+    } else {
+      this.logInvalidWithDraw();
+    }
   }
 }
